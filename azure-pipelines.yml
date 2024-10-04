@@ -5,10 +5,12 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: UseJava@1
-  inputs:
-    versionSpec: '17'
-    jdkArchitectureOption: 'x64'
+- script: |
+    echo "Installing Java..."
+    sudo apt-get update
+    sudo apt-get install openjdk-17-jdk -y
+    java -version
+  displayName: 'Install Java 17'
 
 - task: Maven@3
   inputs:
