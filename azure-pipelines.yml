@@ -1,0 +1,22 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UseJava@1
+  inputs:
+    versionSpec: '17'
+    jdkArchitectureOption: 'x64'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    options: '-B'
+    goals: 'clean install'
+
+- script: |
+    echo "Running tests..."
+    mvn test
+  displayName: 'Run tests'
